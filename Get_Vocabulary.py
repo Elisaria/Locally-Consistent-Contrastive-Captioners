@@ -1,5 +1,6 @@
 from keras import layers
 import tensorflow as tf
+import numpy as np
 
 
 # Add "[cls]" token to each sentence.
@@ -31,3 +32,10 @@ print(Vectorize_Layer.get_vocabulary())
 
 vocabulary = "vocabulary.txt"
 tf.io.write_file(vocabulary, "\n".join(Vectorize_Layer.get_vocabulary()))
+
+# Convert all texts in the text dataset into integer sequences
+# (batch_size, 77)
+text_sequences = Vectorize_Layer(tf.stack(list(texts)))
+print(text_sequences)
+# Save as an .npy file
+np.save("texts.npy", text_sequences.numpy())
